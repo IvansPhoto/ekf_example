@@ -2,15 +2,17 @@ import 'package:hive/hive.dart';
 part 'classes.g.dart';
 
 abstract class RouteNames {
-  static const index = '/';
-  static const EmployeesList = '/EmployeesList';
-  static const NewEmployee = '/NewEmployee';
-  static const ChildrenList = '/ChildrenList';
-  static const NewChildren = '/NewChildren';
+  static final index = '/';
+  static final employeesList = '/EmployeesList';
+  static final newEmployee = '/NewEmployee';
+  static final childrenList = '/ChildrenList';
+  static final newChildren = '/NewChildren';
+}
+abstract class Boxes {
+  static final String employeesBox = 'employees';
+  static final String childrenBox = 'children';
 }
 
-const String EmployeesBox = 'EmployeesBox';
-const String ChildrenBox = 'ChildrenBox';
 
 @HiveType(typeId: 0)
 class EmployeesData extends HiveObject {

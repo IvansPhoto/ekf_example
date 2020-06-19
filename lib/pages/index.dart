@@ -12,8 +12,8 @@ class Index extends StatelessWidget {
       body: Center(
         child: ListView(
           children: <Widget>[
-            FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.EmployeesList), child: const Text('Employees List')),
-            FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.ChildrenList), child: const Text('Children List')),
+            FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.employeesList), child: const Text('Employees List')),
+            FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.childrenList), child: const Text('Children List')),
           ],
         ),
       ),

@@ -12,15 +12,24 @@ class EmployeesList extends StatelessWidget {
         title: Text('The list of employees'),
       ),
       body: ValueListenableBuilder(
-        valueListenable: Hive.box<EmployeesData>(EmployeesBox).listenable(),
+        valueListenable: Hive.box<EmployeesData>(Boxes.employeesBox).listenable(),
         builder: (context, Box<EmployeesData> box, _) {
           if (box.values.isEmpty) return Center(child: Text("No employees in the list."));
-          return Center(child: Text('data'));
+          return ListView.builder(
+            itemCount: box.values.length,
+            itemBuilder: (context, index) {
+              EmployeesData theEmployee = box.getAt(index);
+              return Card(
+                elevation: 0,
+                child: Text(theEmployee.name),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: IconButton(
         icon: Icon(Icons.add),
-        onPressed: () => Navigator.pushNamed(context, RouteNames.NewEmployee),
+        onPressed: () => Navigator.pushNamed(context, RouteNames.newEmployee),
       ),
     );
   }

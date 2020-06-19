@@ -11,16 +11,16 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<EmployeesData>(EmployeesDataAdapter());
   Hive.registerAdapter<ChildrenData>(ChildrenDataAdapter());
-  await Hive.openBox<EmployeesData>(EmployeesBox);
-  await Hive.openBox<ChildrenData>(ChildrenBox);
+  await Hive.openBox<EmployeesData>(Boxes.employeesBox);
+  await Hive.openBox<ChildrenData>(Boxes.childrenBox);
   runApp(MaterialApp(
     title: 'The EFT test application',
     initialRoute: RouteNames.index,
     routes: {
       RouteNames.index: (BuildContext context) => Index(),
-      RouteNames.EmployeesList: (BuildContext context) => EmployeesList(),
-      RouteNames.NewEmployee: (BuildContext context) => NewEmployee(),
-      RouteNames.ChildrenList: (BuildContext context) => ChildrenList()
+      RouteNames.employeesList: (BuildContext context) => EmployeesList(),
+      RouteNames.newEmployee: (BuildContext context) => NewEmployee(),
+      RouteNames.childrenList: (BuildContext context) => ChildrenList()
     },
     theme: ThemeData(
       brightness: Brightness.light,

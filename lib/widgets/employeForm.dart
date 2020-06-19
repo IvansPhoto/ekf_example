@@ -14,22 +14,25 @@ class EmployeeForm extends StatefulWidget {
 }
 
 class _EmployeeFormState extends State<EmployeeForm> {
-//  final _nameTEC = TextEditingController(text: 'Brad');
-//  final _surnameTEC = TextEditingController();
-//  final _birthdayTEC = TextEditingController();
-
   TextEditingController _nameTEC;
   TextEditingController _surnameTEC;
 //  TextEditingController _birthdayTEC;
 
+  Box<EmployeesData> employeesBox = Hive.box<EmployeesData>(Boxes.employeesBox);
+  int newId;
+
   @override
   void initState() {
+    newId = employeesBox.values.length;
+    print(newId);
     if (widget.employee == null) {
       _nameTEC = TextEditingController();
       _surnameTEC = TextEditingController();
+//      _birthdayTEC = TextEditingController();
     } else {
       _nameTEC = TextEditingController(text: widget.employee.name);
       _surnameTEC = TextEditingController(text: widget.employee.surName);
+//      _birthdayTEC = TextEditingController(text: widget.employee.birthdate);
     }
     super.initState();
   }
@@ -43,8 +46,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
   }
 
   void _addEmployee() {
-    Box<EmployeesData> employeesBox = Hive.box<EmployeesData>(EmployeesBox);
-    employeesBox.add(EmployeesData(id: Hive.box(EmployeesBox).length, name: _nameTEC.text, surName: _surnameTEC.text));
+    employeesBox.add(EmployeesData(name: _nameTEC.text, surName: _surnameTEC.text));
     Navigator.of(context).pop();
   }
 
@@ -78,11 +80,10 @@ class _EmployeeFormState extends State<EmployeeForm> {
               keyboardType: TextInputType.text,
               validator: (value) => value.isEmpty ? 'Enter a employee surname' : null,
             ),
+//            CalendarDatePicker(initialDate: null, firstDate: null, lastDate: null, onDateChanged: null),
             RaisedButton(
               elevation: 0,
-              onPressed: () => {
-                if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()
-              },
+              onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
               child: widget.employee == null ? const Text('Submit') : const Text('Update'),
             ),
           ],
