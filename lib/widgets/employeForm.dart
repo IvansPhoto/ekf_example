@@ -16,7 +16,8 @@ class EmployeeForm extends StatefulWidget {
 class _EmployeeFormState extends State<EmployeeForm> {
   TextEditingController _nameTEC;
   TextEditingController _surnameTEC;
-//  TextEditingController _birthdayTEC;
+  TextEditingController _positionTEC;
+  DateTime _birthday;
 
   Box<EmployeesData> employeesBox = Hive.box<EmployeesData>(Boxes.employeesBox);
   int newId;
@@ -28,11 +29,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
     if (widget.employee == null) {
       _nameTEC = TextEditingController();
       _surnameTEC = TextEditingController();
-//      _birthdayTEC = TextEditingController();
+      _positionTEC = TextEditingController();
     } else {
       _nameTEC = TextEditingController(text: widget.employee.name);
       _surnameTEC = TextEditingController(text: widget.employee.surName);
-//      _birthdayTEC = TextEditingController(text: widget.employee.birthdate);
+      _positionTEC = TextEditingController(text: widget.employee.position);
+      _birthday = widget.employee.birthdate;
     }
     super.initState();
   }
@@ -41,18 +43,19 @@ class _EmployeeFormState extends State<EmployeeForm> {
   void dispose() {
     _nameTEC.dispose();
     _surnameTEC.dispose();
-//    _birthdayTEC.dispose();
     super.dispose();
   }
 
   void _addEmployee() {
-    employeesBox.add(EmployeesData(name: _nameTEC.text, surName: _surnameTEC.text));
+    employeesBox.add(EmployeesData(name: _nameTEC.text, surName: _surnameTEC.text, birthdate: _birthday, position: _positionTEC.text));
     Navigator.of(context).pop();
   }
 
   void _updateEmployee() {
     widget.employee.name = _nameTEC.text;
     widget.employee.surName = _surnameTEC.text;
+    widget.employee.position = _surnameTEC.text;
+    widget.employee.birthdate = _birthday;
     widget.employee.save();
     Navigator.of(context).pop();
   }
@@ -71,16 +74,41 @@ class _EmployeeFormState extends State<EmployeeForm> {
               decoration: const InputDecoration(hintText: 'Name', labelText: "The name"),
               maxLength: 50,
               keyboardType: TextInputType.text,
-              validator: (value) => value.isEmpty ? 'Enter a employee name' : null,
+              validator: (value) => value.isEmpty ? 'Enter the employee name' : null,
             ),
             TextFormField(
               controller: _surnameTEC,
               decoration: const InputDecoration(hintText: 'Surname', labelText: "The surname"),
               maxLength: 50,
               keyboardType: TextInputType.text,
-              validator: (value) => value.isEmpty ? 'Enter a employee surname' : null,
+              validator: (value) => value.isEmpty ? 'Enter the employee surname' : null,
             ),
-//            CalendarDatePicker(initialDate: null, firstDate: null, lastDate: null, onDateChanged: null),
+            TextFormField(
+              controller: _positionTEC,
+              decoration: const InputDecoration(hintText: 'Position', labelText: "The position"),
+              maxLength: 50,
+              keyboardType: TextInputType.text,
+              validator: (value) => value.isEmpty ? 'Enter the employee position' : null,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  elevation: 0,
+                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
+                  onPressed: () => showDatePicker(
+                    context: context,
+                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime(2021),
+                  ).then((dateTime) => _birthday = dateTime),
+                ),
+                Text(widget.employee == null
+                    ? '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}'
+                    : '${widget.employee.birthdate.year.toString()}-${widget.employee.birthdate.month.toString()}-${widget.employee.birthdate.day.toString()}')
+              ],
+            ),
             RaisedButton(
               elevation: 0,
               onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
