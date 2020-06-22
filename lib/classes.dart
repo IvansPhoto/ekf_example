@@ -4,6 +4,7 @@ part 'classes.g.dart';
 abstract class RouteNames {
   static final index = '/';
   static final employeesList = '/EmployeesList';
+  static final showEmployee = '/ShowEmployee';
   static final newEmployee = '/NewEmployee/NewEmployee';
   static final childrenList = '/ChildrenList';
   static final newChildren = '/NewChild/NewChild';

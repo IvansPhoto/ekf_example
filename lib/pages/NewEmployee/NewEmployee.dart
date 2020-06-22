@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ekf_example/pages/NewEmployee/EmployeeForm.dart';
 
 class NewEmployee extends StatelessWidget {
-//  NewEmployee({this.employee});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:ekf_example/classes.dart';
 import 'package:ekf_example/pages/ChildrenList.dart';
 import 'package:ekf_example/pages/EmployeesList.dart';
+import 'package:ekf_example/pages/ShowEmployee.dart';
 import 'package:ekf_example/pages/index.dart';
 import 'file:///D:/Autodesk/ekf_example/lib/pages/NewEmployee/NewEmployee.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ void main() async {
     routes: {
       RouteNames.index: (BuildContext context) => Index(),
       RouteNames.employeesList: (BuildContext context) => EmployeesList(),
+      RouteNames.showEmployee: (BuildContext context) => ShowEmployee(),
       RouteNames.newEmployee: (BuildContext context) => NewEmployee(),
       RouteNames.childrenList: (BuildContext context) => ChildrenList()
     },

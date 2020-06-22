@@ -58,8 +58,8 @@ class _EmployeeFormState extends State<EmployeeForm> {
     widget.employee.position = _positionTEC.text;
     widget.employee.birthdate = _birthday;
     widget.employee.save();
-    Navigator.of(context).pop();
     Scaffold.of(context).showSnackBar(SnackBar(content: Text('The employee has been updated.')));
+    Navigator.of(context).pop();
   }
 
   @override
