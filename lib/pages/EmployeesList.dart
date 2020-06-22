@@ -1,4 +1,6 @@
 import 'package:ekf_example/classes.dart';
+import 'package:ekf_example/pages/NewChild/NewChild.dart';
+import 'package:ekf_example/pages/NewEmployee/EmployeeForm.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -21,7 +23,11 @@ class EmployeesList extends StatelessWidget {
               EmployeesData theEmployee = box.getAt(index);
               return Card(
                 elevation: 0,
-                child: Text(theEmployee.name),
+                child: ListTile(
+                  title: Text('${theEmployee.surName} ${theEmployee.name}'),
+                  subtitle: Text(theEmployee.position ?? 'No position'),
+                  onTap: () => Navigator.of(context).pushNamed(RouteNames.newEmployee, arguments: theEmployee),
+                ),
               );
             },
           );

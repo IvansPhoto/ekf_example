@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../classes.dart';
+import 'package:ekf_example/classes.dart';
 
 class ChildrenList extends StatelessWidget {
   @override

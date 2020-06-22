@@ -55,7 +55,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
   void _updateEmployee() {
     widget.employee.name = _nameTEC.text;
     widget.employee.surName = _surnameTEC.text;
-    widget.employee.position = _surnameTEC.text;
+    widget.employee.position = _positionTEC.text;
     widget.employee.birthdate = _birthday;
     widget.employee.save();
     Navigator.of(context).pop();
@@ -64,6 +64,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.employee.name);
     return Form(
         key: widget._formKey,
         autovalidate: true,
@@ -92,25 +93,25 @@ class _EmployeeFormState extends State<EmployeeForm> {
               keyboardType: TextInputType.text,
               validator: (value) => value.isEmpty ? 'Enter the employee position' : null,
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                RaisedButton(
-                  elevation: 0,
-                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
-                  onPressed: () => showDatePicker(
-                    context: context,
-                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
-                    firstDate: DateTime(1950),
-                    lastDate: DateTime(2021),
-                  ).then((dateTime) => _birthday = dateTime),
-                ),
-                Text(widget.employee == null
-                    ? '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}'
-                    : '${widget.employee.birthdate.year.toString()}-${widget.employee.birthdate.month.toString()}-${widget.employee.birthdate.day.toString()}')
-              ],
-            ),
+//            Row(
+//              crossAxisAlignment: CrossAxisAlignment.center,
+//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//              children: <Widget>[
+//                RaisedButton(
+//                  elevation: 0,
+//                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
+//                  onPressed: () => showDatePicker(
+//                    context: context,
+//                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
+//                    firstDate: DateTime(1950),
+//                    lastDate: DateTime(2021),
+//                  ).then((dateTime) => _birthday = dateTime),
+//                ),
+//                Text(widget.employee == null
+//                    ? '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}'
+//                    : '${widget.employee.birthdate.year.toString()}-${widget.employee.birthdate.month.toString()}-${widget.employee.birthdate.day.toString()}')
+//              ],
+//            ),
             RaisedButton(
               elevation: 0,
               onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
