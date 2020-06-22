@@ -49,6 +49,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
   void _addEmployee() {
     employeesBox.add(EmployeesData(name: _nameTEC.text, surName: _surnameTEC.text, birthdate: _birthday, position: _positionTEC.text));
     Navigator.of(context).pop();
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('The employee has been added.')));
   }
 
   void _updateEmployee() {
@@ -58,6 +59,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
     widget.employee.birthdate = _birthday;
     widget.employee.save();
     Navigator.of(context).pop();
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text('The employee has been updated.')));
   }
 
   @override

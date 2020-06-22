@@ -1,6 +1,6 @@
 import 'package:ekf_example/classes.dart';
 import 'package:flutter/material.dart';
-import 'package:ekf_example/widgets/employeForm.dart';
+import 'package:ekf_example/pages/NewEmployee/_employeeForm.dart';
 
 EmployeesData brad = EmployeesData(name: 'Brad', surName: 'Tra');
 
