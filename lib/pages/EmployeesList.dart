@@ -23,7 +23,7 @@ class EmployeesList extends StatelessWidget {
                 elevation: 0,
                 child: ListTile(
                   title: Text('${theEmployee.surName} ${theEmployee.name}'),
-                  subtitle: Text(theEmployee.position ?? 'No position'),
+                  subtitle: Text(theEmployee.children == null ? 'No children' : 'Children: ${theEmployee.children.length}'),
                   onTap: () => Navigator.of(context).pushNamed(RouteNames.showEmployee, arguments: theEmployee),
                 ),
               );
