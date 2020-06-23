@@ -1,6 +1,5 @@
 import 'package:ekf_example/classes.dart';
 import 'package:flutter/material.dart';
-import 'file:///D:/Autodesk/ekf_example/lib/pages/NewEmployee/EmployeeForm.dart';
 
 class NewEmployee extends StatelessWidget {
 	@override

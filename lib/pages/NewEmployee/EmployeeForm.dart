@@ -1,7 +1,6 @@
 import 'package:ekf_example/classes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class EmployeeForm extends StatefulWidget {
   final _formKey = GlobalKey<FormState>();
@@ -18,23 +17,24 @@ class _EmployeeFormState extends State<EmployeeForm> {
   TextEditingController _surnameTEC;
   TextEditingController _positionTEC;
   DateTime _birthday;
+  String _birthdayText;
 
   Box<EmployeesData> employeesBox = Hive.box<EmployeesData>(Boxes.employeesBox);
   int newId;
 
   @override
   void initState() {
-    newId = employeesBox.values.length;
-    print(newId);
     if (widget.employee == null) {
       _nameTEC = TextEditingController();
       _surnameTEC = TextEditingController();
       _positionTEC = TextEditingController();
+      _birthdayText = '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}';
     } else {
       _nameTEC = TextEditingController(text: widget.employee.name);
       _surnameTEC = TextEditingController(text: widget.employee.surName);
       _positionTEC = TextEditingController(text: widget.employee.position);
       _birthday = widget.employee.birthdate;
+      _birthdayText = '${widget.employee.birthdate.year.toString()}-${widget.employee.birthdate.month.toString()}-${widget.employee.birthdate.day.toString()}';
     }
     super.initState();
   }
@@ -64,7 +64,6 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.employee.name);
     return Form(
         key: widget._formKey,
         autovalidate: true,
@@ -93,25 +92,26 @@ class _EmployeeFormState extends State<EmployeeForm> {
               keyboardType: TextInputType.text,
               validator: (value) => value.isEmpty ? 'Enter the employee position' : null,
             ),
-//            Row(
-//              crossAxisAlignment: CrossAxisAlignment.center,
-//              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//              children: <Widget>[
-//                RaisedButton(
-//                  elevation: 0,
-//                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
-//                  onPressed: () => showDatePicker(
-//                    context: context,
-//                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
-//                    firstDate: DateTime(1950),
-//                    lastDate: DateTime(2021),
-//                  ).then((dateTime) => _birthday = dateTime),
-//                ),
-//                Text(widget.employee == null
-//                    ? '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}'
-//                    : '${widget.employee.birthdate.year.toString()}-${widget.employee.birthdate.month.toString()}-${widget.employee.birthdate.day.toString()}')
-//              ],
-//            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                RaisedButton(
+                  elevation: 0,
+                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
+                  onPressed: () => showDatePicker(
+                    context: context,
+                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime(2021),
+                  ).then((dateTime) => setState(() {
+                    _birthday = dateTime;
+                    _birthdayText = '${dateTime.year.toString()}-${dateTime.month.toString()}-${dateTime.day.toString()}';
+                  })),
+                ),
+                Text(_birthdayText)
+              ],
+            ),
             RaisedButton(
               elevation: 0,
               onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
