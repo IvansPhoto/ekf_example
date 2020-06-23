@@ -23,7 +23,7 @@ class ShowEmployee extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Name\n'),
+                      const TextSpan(text: 'Name\n'),
                       TextSpan(text: employee.name),
                     ],
                   )),
@@ -32,7 +32,7 @@ class ShowEmployee extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Surname\n'),
+                      const TextSpan(text: 'Surname\n'),
                       TextSpan(text: employee.surName),
                     ],
                   )),
@@ -42,7 +42,7 @@ class ShowEmployee extends StatelessWidget {
                       text: TextSpan(
                     style: DefaultTextStyle.of(context).style,
                     children: <TextSpan>[
-                      TextSpan(text: 'Birthday\n'),
+                      const TextSpan(text: 'Birthday\n'),
                       TextSpan(text: '${employee.birthdate.year}-${employee.birthdate.month}-${employee.birthdate.day}'),
                     ],
                   )),
@@ -51,7 +51,7 @@ class ShowEmployee extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Position\n'),
+                      const TextSpan(text: 'Position\n'),
                       TextSpan(text: employee.position),
                     ],
                   )),
@@ -60,11 +60,13 @@ class ShowEmployee extends StatelessWidget {
                   RichText(
                       text: TextSpan(
                     children: <TextSpan>[
-                      TextSpan(text: 'Children\n'),
+                      const TextSpan(text: 'Children\n'),
                     ],
                   )),
                 if (employee.children != null) Divider(),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     FlatButton.icon(
                       onPressed: () => Navigator.of(context).pushNamed(RouteNames.newEmployee, arguments: employee),
@@ -72,7 +74,14 @@ class ShowEmployee extends StatelessWidget {
                       label: Text('Edit'),
                     ),
                     FlatButton.icon(
-                      onPressed: () => print('Tap on the Delete button'),
+                      onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => _DeleteConfirmation(
+                                  employee: employee,
+                                ),
+                            fullscreenDialog: true),
+                      ),
                       icon: Icon(Icons.delete_forever),
                       label: Text('Delete'),
                     )
@@ -83,5 +92,48 @@ class ShowEmployee extends StatelessWidget {
             );
           }),
     );
+  }
+}
+
+class _DeleteConfirmation extends StatelessWidget {
+  final EmployeesData employee;
+
+  _DeleteConfirmation({this.employee});
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          elevation: 0,
+          centerTitle: true,
+          title: const Text('Confirmation'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text('Are you sure to delete of:'),
+              Text('${employee.name} ${employee.surName}'),
+              FlatButton.icon(onPressed: () => Navigator.pop(context), icon: Icon(Icons.restore), label: Text('Stay in the list!')),
+              FlatButton.icon(
+                  onPressed: () {
+                    employee.delete();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                    _scaffoldKey.currentState.showSnackBar(SnackBar(
+                      content: Text('The employee has been deleted.'),
+                      duration: Duration(seconds: 5),
+                      elevation: 0,
+                    ));
+                  },
+                  icon: Icon(Icons.delete_forever),
+                  label: Text('Remove from the list!'))
+            ],
+          ),
+        ));
   }
 }

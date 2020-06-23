@@ -9,12 +9,12 @@ class EmployeesList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: Text('The list of employees'),
+        title: const Text('The list of employees'),
       ),
       body: ValueListenableBuilder(
         valueListenable: Hive.box<EmployeesData>(Boxes.employeesBox).listenable(),
         builder: (context, Box<EmployeesData> box, _) {
-          if (box.values.isEmpty) return Center(child: Text("No employees in the list."));
+          if (box.values.isEmpty) return Center(child: const Text("No employees in the list."));
           return ListView.builder(
             itemCount: box.values.length,
             itemBuilder: (context, index) {
@@ -32,7 +32,7 @@ class EmployeesList extends StatelessWidget {
         },
       ),
       floatingActionButton: IconButton(
-        icon: Icon(Icons.add),
+        icon: const Icon(Icons.add),
         onPressed: () => Navigator.pushNamed(context, RouteNames.newEmployee),
       ),
     );

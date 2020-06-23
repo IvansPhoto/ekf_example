@@ -1,6 +1,6 @@
 import 'package:ekf_example/classes.dart';
 import 'package:flutter/material.dart';
-import 'package:ekf_example/pages/NewEmployee/EmployeeForm.dart';
+import 'package:ekf_example/pages/NewEmployee/NewEmployeeForm.dart';
 
 class NewEmployee extends StatelessWidget {
 
