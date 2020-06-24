@@ -10,7 +10,9 @@ class Index extends StatelessWidget {
         title: const Text('Home page'),
       ),
       body: Center(
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.employeesList), child: const Text('Employees List')),
             FlatButton(onPressed: () => Navigator.pushNamed(context, RouteNames.childrenList), child: const Text('Children List')),

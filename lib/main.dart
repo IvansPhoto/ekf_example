@@ -1,7 +1,7 @@
 import 'package:ekf_example/classes.dart';
 import 'package:ekf_example/pages/ChildrenList.dart';
 import 'package:ekf_example/pages/EmployeesList.dart';
-import 'package:ekf_example/pages/ShowEmployee.dart';
+import 'file:///D:/Autodesk/ekf_example/lib/pages/ShowEmployee/ShowEmployee.dart';
 import 'package:ekf_example/pages/index.dart';
 import 'file:///D:/Autodesk/ekf_example/lib/pages/NewEmployee/NewEmployee.dart';
 import 'package:flutter/material.dart';
@@ -31,16 +31,21 @@ void main() async {
       primaryColorLight: Colors.red[500],
     ),
     darkTheme: ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Colors.red[900],
-      primaryColorDark: Colors.red[700],
-      primaryColorLight: Colors.red[500],
-      buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.normal, height: 15, buttonColor: Colors.red[900]),
-      textTheme: TextTheme(button: TextStyle(fontSize: 25), headline1: TextStyle(fontSize: 25))
-    ),
+        brightness: Brightness.dark,
+        primaryColor: Colors.red[900],
+        primaryColorDark: Colors.red[700],
+        primaryColorLight: Colors.red[500],
+        buttonTheme: ButtonThemeData(textTheme: ButtonTextTheme.normal, height: 15, buttonColor: Colors.red[900]),
+        textTheme: TextTheme(
+          bodyText1: TextStyle(fontSize: 25, color: Colors.red[900]),
+          bodyText2: TextStyle(fontSize: 25, color: Colors.deepOrange),
+          caption: TextStyle(fontSize: 10, color: Colors.amber),
+          overline: TextStyle(fontSize: 25, color: Colors.blue),
+          button: TextStyle(fontSize: 25),
+          headline1: TextStyle(fontSize: 25),
+        )),
   ));
 }
-
 
 //Необходимо создать приложение на Flutter в котором будет реализована возможность вноса списка сотрудников и их детей.
 //Должна быть возможность просмотра "подчиненного списка" детей
