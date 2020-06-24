@@ -1,5 +1,5 @@
 import 'package:ekf_example/classes.dart';
-import 'package:ekf_example/pages/ShowEmployee/ActionButtons.dart';
+import 'package:ekf_example/pages/ShowEmployee/ActionButtonsEmployee.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,7 +8,6 @@ class ShowEmployee extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final EmployeesData employee = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

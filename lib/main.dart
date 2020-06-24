@@ -1,12 +1,14 @@
 import 'package:ekf_example/classes.dart';
 import 'package:ekf_example/pages/ChildrenList.dart';
 import 'package:ekf_example/pages/EmployeesList.dart';
-import 'file:///D:/Autodesk/ekf_example/lib/pages/ShowEmployee/ShowEmployee.dart';
-import 'package:ekf_example/pages/index.dart';
-import 'file:///D:/Autodesk/ekf_example/lib/pages/NewEmployee/NewEmployee.dart';
+import 'package:ekf_example/pages/NewChild/NewChild.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ekf_example/pages/NewEmployee/NewEmployee.dart';
+import 'package:ekf_example/pages/ShowChild/ShowChild.dart';
+import 'package:ekf_example/pages/ShowEmployee/ShowEmployee.dart';
+import 'package:ekf_example/pages/index.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -22,7 +24,9 @@ void main() async {
       RouteNames.employeesList: (BuildContext context) => EmployeesList(),
       RouteNames.showEmployee: (BuildContext context) => ShowEmployee(),
       RouteNames.newEmployee: (BuildContext context) => NewEmployee(),
-      RouteNames.childrenList: (BuildContext context) => ChildrenList()
+      RouteNames.childrenList: (BuildContext context) => ChildrenList(),
+      RouteNames.showChild: (BuildContext context) => ShowChild(),
+      RouteNames.newChildren: (BuildContext context) => NewChild(),
     },
     theme: ThemeData(
       brightness: Brightness.light,

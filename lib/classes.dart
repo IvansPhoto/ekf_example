@@ -7,6 +7,7 @@ abstract class RouteNames {
   static final showEmployee = '/ShowEmployee';
   static final newEmployee = '/NewEmployee/NewEmployee';
   static final childrenList = '/ChildrenList';
+  static final showChild = '/ShowChild';
   static final newChildren = '/NewChild/NewChild';
 }
 abstract class Boxes {

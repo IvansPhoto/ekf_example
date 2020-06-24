@@ -1,7 +1,7 @@
-import 'package:ekf_example/classes.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ekf_example/classes.dart';
 
 class EmployeesList extends StatelessWidget {
   @override

@@ -20,7 +20,6 @@ class _EmployeeFormState extends State<EmployeeForm> {
   String _birthdayText;
 
   Box<EmployeesData> employeesBox = Hive.box<EmployeesData>(Boxes.employeesBox);
-  int newId;
 
   @override
   void initState() {
@@ -43,13 +42,23 @@ class _EmployeeFormState extends State<EmployeeForm> {
   void dispose() {
     _nameTEC.dispose();
     _surnameTEC.dispose();
+    _positionTEC.dispose();
     super.dispose();
   }
 
   void _addEmployee() {
-    employeesBox.add(EmployeesData(name: _nameTEC.text, surName: _surnameTEC.text, birthdate: _birthday, position: _positionTEC.text));
+    employeesBox.add(EmployeesData(
+      name: _nameTEC.text,
+      surName: _surnameTEC.text,
+      birthdate: _birthday,
+      position: _positionTEC.text,
+    ));
     Navigator.of(context).pop();
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('The employee has been added.')));
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('The employee has been added.'),
+      elevation: 0,
+      duration: Duration(seconds: 5),
+    ));
   }
 
   void _updateEmployee() {
@@ -58,8 +67,12 @@ class _EmployeeFormState extends State<EmployeeForm> {
     widget.employee.position = _positionTEC.text;
     widget.employee.birthdate = _birthday;
     widget.employee.save();
-    Scaffold.of(context).showSnackBar(SnackBar(content: Text('The employee has been updated.')));
     Navigator.of(context).pop();
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text('The employee has been updated.'),
+      elevation: 0,
+      duration: Duration(seconds: 5),
+    ));
   }
 
   @override
@@ -105,9 +118,9 @@ class _EmployeeFormState extends State<EmployeeForm> {
                     firstDate: DateTime(1950),
                     lastDate: DateTime(2021),
                   ).then((dateTime) => setState(() {
-                    _birthday = dateTime;
-                    _birthdayText = '${dateTime.year.toString()}-${dateTime.month.toString()}-${dateTime.day.toString()}';
-                  })),
+                        _birthday = dateTime;
+                        _birthdayText = '${dateTime.year.toString()}-${dateTime.month.toString()}-${dateTime.day.toString()}';
+                      })),
                 ),
                 Text(_birthdayText)
               ],
