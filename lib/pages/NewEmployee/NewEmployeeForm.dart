@@ -27,6 +27,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
       _nameTEC = TextEditingController();
       _surnameTEC = TextEditingController();
       _positionTEC = TextEditingController();
+      _birthday = DateTime.now();
       _birthdayText = '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}';
     } else {
       _nameTEC = TextEditingController(text: widget.employee.name);
@@ -52,6 +53,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
       surName: _surnameTEC.text,
       birthdate: _birthday,
       position: _positionTEC.text,
+      children: [],
     ));
     Navigator.of(context).pop();
     Scaffold.of(context).showSnackBar(SnackBar(
@@ -81,6 +83,7 @@ class _EmployeeFormState extends State<EmployeeForm> {
         key: widget._formKey,
         autovalidate: true,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             TextFormField(
@@ -125,10 +128,18 @@ class _EmployeeFormState extends State<EmployeeForm> {
                 Text(_birthdayText)
               ],
             ),
-            RaisedButton(
-              elevation: 0,
-              onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
-              child: widget.employee == null ? const Text('Submit') : const Text('Update'),
+            FlatButton.icon(
+              onPressed: () => Navigator.pushNamed(context, RouteNames.childrenList, arguments: widget.employee),
+              icon: Icon(Icons.person_add),
+              label: Text('Add a child'),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+              child: RaisedButton(
+                elevation: 0,
+                onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
+                child: widget.employee == null ? const Text('Submit') : const Text('Update'),
+              ),
             ),
           ],
         ));

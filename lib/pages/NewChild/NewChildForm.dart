@@ -26,6 +26,7 @@ class _NewChildFormState extends State<NewChildForm> {
       _nameTEC = TextEditingController();
       _surnameTEC = TextEditingController();
       _patronymicTEC = TextEditingController();
+      _birthday = DateTime.now();
       _birthdayText = '${DateTime.now().year.toString()}-${DateTime.now().month.toString()}-${DateTime.now().day.toString()}';
     } else {
       _nameTEC = TextEditingController(text: widget.child.name);
