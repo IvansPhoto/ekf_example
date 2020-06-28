@@ -1,15 +1,21 @@
+import 'package:ekf_example/pages/SelectChildren/SelectChildrenListTitle.dart';
 import 'package:flutter/material.dart';
 import 'package:ekf_example/classes.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class ChildrenList extends StatelessWidget {
+class SelectChildren extends StatefulWidget {
+  @override
+  _SelectChildrenState createState() => _SelectChildrenState();
+}
+
+class _SelectChildrenState extends State<SelectChildren> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('The list of children'),
+        title: const Text('Select children'),
       ),
       body: ValueListenableBuilder(
         valueListenable: Hive.box<ChildrenData>(Boxes.childrenBox).listenable(),
@@ -21,22 +27,14 @@ class ChildrenList extends StatelessWidget {
               ChildrenData theChild = box.getAt(index);
               return Card(
                 elevation: 0,
-                child: Column(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text('${theChild.surName} ${theChild.name}'),
-//                      subtitle: Text('${theChild.birthdate.year}-${theChild.birthdate.month}-${theChild.birthdate.day}'),
-                      onTap: () => Navigator.of(context).pushNamed(RouteNames.showChild, arguments: theChild),
-                    ),
-                  ],
-                ),
+                child: SelectChildrenListTitle(theChild: theChild)
               );
             },
           );
         },
       ),
       floatingActionButton: IconButton(
-        icon: Icon(Icons.add),
+        icon: Icon(Icons.add_circle_outline),
         onPressed: () => Navigator.pushNamed(context, RouteNames.newChildren),
       ),
     );

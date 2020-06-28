@@ -5,6 +5,21 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ShowEmployee extends StatelessWidget {
+
+  List<Widget> _showChildrenList(List<ChildrenData> _childrenList) {
+    List<Widget> _childrenWidgets = [];
+    _childrenWidgets.add(Text('Children:'));
+    if (_childrenList == null) {
+      _childrenWidgets.add(Text('Without children'));
+      return _childrenWidgets;
+    } else {
+      for (int i = 0; i < _childrenList.length; i++) {
+        _childrenWidgets.add(Text('${i + 1}: ${_childrenList[i].name} ${_childrenList[i].surName} ${_childrenList[i].patronymic}'));
+      }
+    }
+    return _childrenWidgets;
+  }
+
   @override
   Widget build(BuildContext context) {
     final EmployeesData employee = ModalRoute.of(context).settings.arguments;
@@ -53,13 +68,9 @@ class ShowEmployee extends StatelessWidget {
                     TextSpan(text: employee.position ?? 'Not specified'),
                   ],
                 )),
-                RichText(
-                    text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: <TextSpan>[
-                    const TextSpan(text: '\nChildren\n'),
-                  ],
-                )),
+                Divider(),
+                ..._showChildrenList(employee.children),
+                Divider(),
                 ActionButtons(employee: employee),
               ],
             );

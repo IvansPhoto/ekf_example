@@ -9,6 +9,7 @@ abstract class RouteNames {
   static final childrenList = '/ChildrenList';
   static final showChild = '/ShowChild';
   static final newChildren = '/NewChild/NewChild';
+  static final selectChildren = '/SelectChildren';
 }
 abstract class Boxes {
   static final String employeesBox = 'employees';

@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ekf_example/classes.dart';
 import 'package:ekf_example/pages/ChildrenList.dart';
 import 'package:ekf_example/pages/EmployeesList.dart';
 import 'package:ekf_example/pages/NewChild/NewChild.dart';
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'file:///D:/Autodesk/ekf_example/lib/pages/SelectChildren/SelectChildren.dart';
 import 'package:ekf_example/pages/NewEmployee/NewEmployee.dart';
 import 'package:ekf_example/pages/ShowChild/ShowChild.dart';
 import 'package:ekf_example/pages/ShowEmployee/ShowEmployee.dart';
@@ -27,6 +28,7 @@ void main() async {
       RouteNames.childrenList: (BuildContext context) => ChildrenList(),
       RouteNames.showChild: (BuildContext context) => ShowChild(),
       RouteNames.newChildren: (BuildContext context) => NewChild(),
+      RouteNames.selectChildren: (BuildContext context) => SelectChildren(),
     },
     theme: ThemeData(
       brightness: Brightness.light,
