@@ -89,14 +89,14 @@ class _EmployeeFormState extends State<EmployeeForm> {
       return _childrenWidgets;
     } else {
       for (int i = 0; i < _childrenList.length; i++) {
-        _childrenWidgets.add(Text('${i + 1}: ${_childrenList[i].name} ${_childrenList[i].surName} ${_childrenList[i].patronymic}'));
+        _childrenWidgets.add(Text('${i + 1}: ${_childrenList[i].surName} ${_childrenList[i].name} ${_childrenList[i].patronymic}'));
       }
     }
     return _childrenWidgets;
   }
 
   void _selectChildren(context) async {
-    List<ChildrenData> children = await Navigator.push(context, MaterialPageRoute(builder: (context) => SelectChildren()));
+    List<ChildrenData> children = await Navigator.push(context, MaterialPageRoute(builder: (context) => SelectChildren(employee: widget.employee)));
     setState(() => _childrenList = children);
     Scaffold.of(context)
       ..removeCurrentSnackBar()
@@ -105,69 +105,69 @@ class _EmployeeFormState extends State<EmployeeForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-        key: widget._formKey,
-        autovalidate: true,
-        child: ListView(
-          children: <Widget>[
-            TextFormField(
-              controller: _nameTEC,
-              decoration: const InputDecoration(hintText: 'Name', labelText: "The name"),
-              maxLength: 50,
-              keyboardType: TextInputType.text,
-              validator: (value) => value.isEmpty ? 'Enter the employee name' : null,
-            ),
-            TextFormField(
-              controller: _surnameTEC,
-              decoration: const InputDecoration(hintText: 'Surname', labelText: "The surname"),
-              maxLength: 50,
-              keyboardType: TextInputType.text,
-              validator: (value) => value.isEmpty ? 'Enter the employee surname' : null,
-            ),
-            TextFormField(
-              controller: _positionTEC,
-              decoration: const InputDecoration(hintText: 'Position', labelText: "The position"),
-              maxLength: 50,
-              keyboardType: TextInputType.text,
-              validator: (value) => value.isEmpty ? 'Enter the employee position' : null,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                RaisedButton(
-                  elevation: 0,
-                  child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
-                  onPressed: () => showDatePicker(
-                    context: context,
-                    initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
-                    firstDate: DateTime(1950),
-                    lastDate: DateTime(2021),
-                  ).then((dateTime) => setState(() {
-                        _birthday = dateTime;
-                        _birthdayText = '${dateTime.year.toString()}-${dateTime.month.toString()}-${dateTime.day.toString()}';
-                      })),
-                ),
-                Text(_birthdayText)
-              ],
-            ),
-            FlatButton.icon(
-              onPressed: () {
-                _selectChildren(context);
-              },
-              icon: Icon(Icons.person_add),
-              label: Text('Add a child'),
-            ),
-            ..._showChildrenList(_childrenList),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
-              child: RaisedButton(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Form(
+          key: widget._formKey,
+          autovalidate: true,
+          child: ListView(
+            children: <Widget>[
+              TextFormField(
+                controller: _nameTEC,
+                decoration: const InputDecoration(hintText: 'Name', labelText: "The name"),
+                maxLength: 50,
+                keyboardType: TextInputType.text,
+                validator: (value) => value.isEmpty ? 'Enter the employee name' : null,
+              ),
+              TextFormField(
+                controller: _surnameTEC,
+                decoration: const InputDecoration(hintText: 'Surname', labelText: "The surname"),
+                maxLength: 50,
+                keyboardType: TextInputType.text,
+                validator: (value) => value.isEmpty ? 'Enter the employee surname' : null,
+              ),
+              TextFormField(
+                controller: _positionTEC,
+                decoration: const InputDecoration(hintText: 'Position', labelText: "The position"),
+                maxLength: 50,
+                keyboardType: TextInputType.text,
+                validator: (value) => value.isEmpty ? 'Enter the employee position' : null,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    elevation: 0,
+                    child: widget.employee == null ? const Text('Select birthday') : const Text('Update birthday'),
+                    onPressed: () => showDatePicker(
+                      context: context,
+                      initialDate: widget.employee == null ? DateTime.now() : widget.employee.birthdate,
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime(2021),
+                    ).then((dateTime) => setState(() {
+                          _birthday = dateTime;
+                          _birthdayText = '${dateTime.year.toString()}-${dateTime.month.toString()}-${dateTime.day.toString()}';
+                        })),
+                  ),
+                  Text(_birthdayText)
+                ],
+              ),
+              FlatButton.icon(
+                onPressed: () {
+                  _selectChildren(context);
+                },
+                icon: Icon(Icons.person_add),
+                label: Text('Add a child'),
+              ),
+              ..._showChildrenList(_childrenList),
+              RaisedButton(
                 elevation: 0,
                 onPressed: () => {if (widget._formKey.currentState.validate()) widget.employee == null ? _addEmployee() : _updateEmployee()},
                 child: widget.employee == null ? const Text('Submit') : const Text('Update'),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
 }

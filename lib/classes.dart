@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
 part 'classes.g.dart';
 
@@ -16,6 +17,14 @@ abstract class Boxes {
   static final String childrenBox = 'children';
 }
 
+class ChildrenListNotifier extends ChangeNotifier {
+  List<ChildrenData> childrenList = [];
+
+  void changeChildren(List<ChildrenData> newChildrenList) {
+    childrenList = newChildrenList;
+    notifyListeners();
+  }
+}
 
 @HiveType(typeId: 0)
 class EmployeesData extends HiveObject {
@@ -62,5 +71,8 @@ class ChildrenData extends HiveObject {
 
   @HiveField(5)
   EmployeesData parent;
+
+  set setParent(EmployeesData newParent) => parent = newParent;
+
   ChildrenData({this.id, this.name, this.surName, this.patronymic, this.birthdate, this.parent});
 }

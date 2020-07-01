@@ -14,7 +14,7 @@ class ShowEmployee extends StatelessWidget {
       return _childrenWidgets;
     } else {
       for (int i = 0; i < _childrenList.length; i++) {
-        _childrenWidgets.add(Text('${i + 1}: ${_childrenList[i].name} ${_childrenList[i].surName} ${_childrenList[i].patronymic}'));
+        _childrenWidgets.add(Text('${i + 1}:  ${_childrenList[i].surName} ${_childrenList[i].name} ${_childrenList[i].patronymic}'));
       }
     }
     return _childrenWidgets;
